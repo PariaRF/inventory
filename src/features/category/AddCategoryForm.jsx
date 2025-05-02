@@ -5,14 +5,13 @@ import TextField from "../../UI/TextField";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useEffect } from "react";
 
-function AddCategoryForm({ onCancel }) {
+function AddCategoryForm({ onCancel, category, setCategory }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitSuccessful },
   } = useForm();
-  const [category, setCategory] = useLocalStorage("category", []);
 
   const onSubmit = (data) => {
     const newCategory = {
