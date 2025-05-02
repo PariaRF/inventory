@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import Button from "../../UI/Button";
 import TextArea from "../../UI/TextArea";
 import TextField from "../../UI/TextField";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import { useEffect } from "react";
 
 function AddCategoryForm({ onCancel, category, setCategory }) {
@@ -10,19 +9,23 @@ function AddCategoryForm({ onCancel, category, setCategory }) {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful },
   } = useForm();
 
   const onSubmit = (data) => {
-    const newCategory = {
-      ...data,
-      createAt: new Date().toISOString(),
-      id: new Date().getTime(),
-    };
+    if (data.title) {
+      const newCategory = {
+        ...data,
+        createAt: new Date().toISOString(),
+        id: new Date().getTime(),
+      };
 
-    setCategory([...category, newCategory]);
+      setCategory([...category, newCategory]);
 
-    reset();
+      reset();
+    } else {
+      return;
+    }
   };
 
   useEffect(() => {
@@ -41,12 +44,23 @@ function AddCategoryForm({ onCancel, category, setCategory }) {
         name="title"
         label="Title"
         register={register}
+        required
+        errors={errors}
+        validationSchema={{
+          required: "Title is required!",
+          minLength: {
+            value: 5,
+            message: "Length must be more than 15 characters.",
+          },
+        }}
       />
       <TextArea
         id="category-desc"
         name="description"
         label="Description"
         register={register}
+        required
+        errors={errors}
       />
       <div className="flex items-center justify-between gap-x-4">
         <Button

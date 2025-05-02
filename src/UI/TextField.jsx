@@ -1,15 +1,29 @@
-function TextField({ type = "text", label, id, name, register }) {
+function TextField({
+  type = "text",
+  label,
+  id,
+  name,
+  register,
+  required,
+  errors,
+  validationSchema,
+}) {
   return (
     <div className="space-y-1">
-      <label htmlFor={name} className="block">
-        {label}
+      <label htmlFor={name} className="flex items-center gap-x-1">
+        {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
         type={type}
         id={id}
-        {...register(name)}
+        {...register(name, validationSchema)}
         className="bg-transparent rounded-xl border border-primary-500 text-primary-400 w-full md:w-auto p-2 hover:border-primary-300 focus:border-primary-300"
       />
+      {errors && errors[name] && (
+        <span className="text-red-500 block text-sm mt-2">
+          {errors[name]?.message}
+        </span>
+      )}
     </div>
   );
 }

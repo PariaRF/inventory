@@ -15,7 +15,6 @@
       --color-primary-500: 183, 196, 215;
       --color-primary-300: 51, 65, 85;
       --color-primary-100: 230, 235, 242;
-      --color-red-300: 248, 113, 113;
     }
     &.dark-mode {
       --color-primary-900: 249, 250, 251;

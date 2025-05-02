@@ -8,7 +8,13 @@ import { useEffect } from "react";
 let selectedCategoryId = "";
 
 function AddProductForm({ category }) {
-  const { register, handleSubmit, reset, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
   const [product, setProduct] = useLocalStorage("product", []);
 
   useEffect(() => {
@@ -18,19 +24,15 @@ function AddProductForm({ category }) {
   useEffect(() => {}, [selectedCategoryId]);
 
   const onSubmit = (data) => {
-    if (selectedCategoryId && data.title && data.quantity) {
-      const newProduct = {
-        ...data,
-        createAt: new Date().toISOString(),
-        id: new Date().getTime(),
-        categoryId: selectedCategoryId,
-      };
-      setProduct([...product, newProduct]);
+    const newProduct = {
+      ...data,
+      createAt: new Date().toISOString(),
+      id: new Date().getTime(),
+      categoryId: selectedCategoryId,
+    };
+    setProduct([...product, newProduct]);
 
-      reset();
-    } else {
-      return;
-    }
+    reset();
   };
 
   return (
@@ -45,6 +47,15 @@ function AddProductForm({ category }) {
           name="title"
           label="Title"
           register={register}
+          required
+          errors={errors}
+          validationSchema={{
+            required: "Title is required!",
+            minLength: {
+              value: 5,
+              message: "Length must be more than 15 characters.",
+            },
+          }}
         />
         <TextField
           id="product-quantity"
@@ -52,19 +63,32 @@ function AddProductForm({ category }) {
           label="Quantity"
           type="number"
           register={register}
+          required
+          errors={errors}
+          validationSchema={{
+            required: "Quantity is required!",
+            min: {
+              value: 1,
+              message: "Quantity must be greater than 0.",
+            },
+          }}
         />
 
         <Select
-          width="546"
           label="Category"
           options={category}
           name="categoryId"
           register={register}
+          required
+          errors={errors}
+          validationSchema={{
+            required: "Select a category is required!",
+          }}
         />
 
         <div className="flex items-center justify-between gap-x-4">
           <Button
-            buttonName="Add Category"
+            buttonName="Add Product"
             type="submit"
             btnClass="flex-1 bg-primary-500 text-primary-200 rounded-xl py-2 hover:bg-primary-600 hover:text-primary-300 focus:bg-primary-600 focus:text-primary-300"
           />

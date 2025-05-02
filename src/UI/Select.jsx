@@ -1,9 +1,20 @@
-function Select({ width = "full", options, label, name, register }) {
+function Select({
+  width = "full",
+  options,
+  label,
+  name,
+  register,
+  required,
+  errors,
+  validationSchema,
+}) {
   return (
     <div>
-      <label>{label}</label>
+      <label>
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
       <select
-        {...register(name, { required: true })}
+        {...register(name, validationSchema)}
         className={`field w-${width}`}
       >
         <option value="" className="bg-primary-500 text-primary-300">
@@ -21,6 +32,11 @@ function Select({ width = "full", options, label, name, register }) {
           );
         })}
       </select>
+      {errors && errors[name] && (
+        <span className="text-red-500 block text-sm mt-2">
+          {errors[name]?.message}
+        </span>
+      )}
     </div>
   );
 }
