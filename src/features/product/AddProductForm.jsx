@@ -29,7 +29,7 @@ function AddProductForm({ category, product, setProduct }) {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 w-full">
       <h2>Add Product</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}

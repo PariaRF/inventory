@@ -1,12 +1,56 @@
-# React + Vite
+<h1 align="center" id="title">🛍️ Product Manager App</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center"><img src="https://socialify.git.ci/PariaRF/inventory/image?font=Inter&amp;language=1&amp;name=1&amp;owner=1&amp;pattern=Brick+Wall&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
 
-Currently, two official plugins are available:
+<p id="description">A responsive product management app built with React Tailwind CSS and React Hook Form. Users can add filter sort and delete products with category support and persistent storage.</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+...
 
-## Expanding the ESLint configuration
+<h2>Project Screenshots:</h2>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<img src="https://i.postimg.cc/BZMW92kW/Free-Connect.png" alt="project-screenshot" width="400" height="400/">
+
+...
+
+<h2>🧐 Features</h2>
+
+Here're some of the project's best features:
+
+- Add Product with title and category
+- Filter products by: - Search input - Category - Sort by Latest or Earliest
+- Delete Product with confirmation modal
+- Persistent storage using \`localStorage\`
+- Dark/Light mode support
+- Responsive design(Mobile & Desktop)
+
+...
+
+<h2>🛠️ Installation Steps:</h2>
+
+```
+https://github.com/PariaRF/inventory.git
+```
+
+```
+cd inventory
+```
+
+```
+npm install
+```
+
+```
+npm run dev
+```
+
+...
+
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+
+- React
+- Tailwind CSS
+- React Hook Form
+- LocalStorage (via custom hook)
+- weetAlert2 for delete confirmation
