@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../UI/Header";
 import CategoryLayout from "../features/category/CategoryLayout";
 import AddProductForm from "../features/product/AddProductForm";
@@ -6,17 +6,39 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Filters from "../features/filters/Filters";
 import { useForm } from "react-hook-form";
 import ProductList from "../features/product/ProductList";
+import Swal from "sweetalert2";
 
 function AppLayout() {
   const [category, setCategory] = useLocalStorage("category", []);
   const [product, setProduct] = useLocalStorage("product", []);
-  const { register, watch } = useForm();
+  const { watch, register } = useForm({
+    defaultValues: {
+      search: "",
+      sort: "earliest",
+      category: "",
+    },
+  });
 
-  let search = watch("search") || "";
+  const search = watch("search");
+  const sort = watch("sort");
+  const selectedCategory = watch("category");
 
-  const filteredProducts = product.filter((p) =>
+  let filteredProducts = product.filter((p) =>
     p.title.toLowerCase().trim().includes(search.toLowerCase().trim())
   );
+
+  if (selectedCategory) {
+    filteredProducts = filteredProducts.filter(
+      (p) => Number(p.categoryId) === Number(selectedCategory)
+    );
+  }
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const dateA = new Date(a.createAt);
+    const dateB = new Date(b.createAt);
+    return sort === "latest" ? dateB - dateA : dateA - dateB;
+  });
+
   return (
     <div>
       <Header productNumber={product.length} />
@@ -31,7 +53,7 @@ function AppLayout() {
         </div>
         <div className="space-y-9 flex-1">
           <Filters category={category} register={register} />
-          <ProductList products={filteredProducts} />
+          <ProductList products={sortedProducts} />
         </div>
       </div>
     </div>

@@ -1,14 +1,16 @@
 import TextField from "../../UI/TextField";
 import Select from "../../UI/Select";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 const sortOptions = [
   {
     title: "Erliest",
-    id: "0",
+    id: "earliest",
   },
   {
     title: "Latest",
-    id: "1",
+    id: "latest",
   },
 ];
 
@@ -38,7 +40,7 @@ function Filters({ category, register }) {
         <Select
           label="Category"
           options={category}
-          name="sort"
+          name="category"
           register={register}
           width="40"
           extraClass="flex justify-between text-primary-600"
@@ -50,12 +52,3 @@ function Filters({ category, register }) {
 }
 
 export default Filters;
-
-// function FilterItem({ children, label }) {
-//   return (
-//     <div className="flex justify-between">
-//       <span>{label}</span>
-//       {children}
-//     </div>
-//   );
-// }
