@@ -7,9 +7,11 @@ function Select({
   required,
   errors,
   validationSchema,
+  extraClass,
+  firstOption,
 }) {
   return (
-    <div>
+    <div className={`${extraClass ? extraClass : ""}`}>
       <label>
         {label} {required && <span className="text-red-500">*</span>}
       </label>
@@ -18,7 +20,7 @@ function Select({
         className={`field w-${width}`}
       >
         <option value="" className="bg-primary-500 text-primary-300">
-          Select a category
+          Select a {firstOption}
         </option>
         {options.map((optionItem) => {
           return (

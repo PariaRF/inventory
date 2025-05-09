@@ -7,9 +7,10 @@ function TextField({
   required,
   errors,
   validationSchema,
+  extraClass,
 }) {
   return (
-    <div className="space-y-1">
+    <div className={`space-y-1 ${extraClass ? extraClass : ""}`}>
       <label htmlFor={name} className="flex items-center gap-x-1">
         {label} {required && <span className="text-red-500">*</span>}
       </label>

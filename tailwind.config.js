@@ -34,7 +34,15 @@ module.exports = {
         center: true,
         padding: "1rem",
       },
+      scrollbar: {
+        DEFAULT: {
+          thickness: "w-2",
+        },
+      },
+      variants: {
+        scrollbar: ["rounded"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

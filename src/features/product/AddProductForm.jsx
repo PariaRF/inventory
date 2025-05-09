@@ -1,34 +1,27 @@
 import { useForm } from "react-hook-form";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import TextField from "../../UI/TextField";
 import Button from "../../UI/Button";
 import Select from "../../UI/Select";
-import { useEffect } from "react";
 
-let selectedCategoryId = "";
-
-function AddProductForm({ category }) {
+function AddProductForm({ category, product, setProduct }) {
   const {
     register,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm();
-  const [product, setProduct] = useLocalStorage("product", []);
-
-  useEffect(() => {
-    selectedCategoryId = watch("categoryId");
-  }, []);
-
-  useEffect(() => {}, [selectedCategoryId]);
 
   const onSubmit = (data) => {
+    const selectedCat = category.find(
+      (cat) => Number(cat.id) === Number(data.categoryId)
+    );
+
     const newProduct = {
       ...data,
       createAt: new Date().toISOString(),
       id: new Date().getTime(),
-      categoryId: selectedCategoryId,
+      categoryId: selectedCat?.id,
+      categoryTitle: selectedCat?.title,
     };
     setProduct([...product, newProduct]);
 
@@ -36,8 +29,8 @@ function AddProductForm({ category }) {
   };
 
   return (
-    <div>
-      <h2>Add New Product</h2>
+    <div className="space-y-2">
+      <h2>Add Product</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 bg-primary-700 p-4 rounded-xl flex flex-col gap-y-4"
@@ -84,6 +77,7 @@ function AddProductForm({ category }) {
           validationSchema={{
             required: "Select a category is required!",
           }}
+          firstOption="category"
         />
 
         <div className="flex items-center justify-between gap-x-4">

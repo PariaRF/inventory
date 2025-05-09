@@ -33,7 +33,7 @@
     @apply w-5 h-5 text-primary-900;
   }
   .field {
-    @apply bg-transparent rounded-xl border border-primary-500 text-primary-400 w-full p-2 hover:border-primary-300 focus:border-primary-300;
+    @apply bg-transparent rounded-xl border border-primary-500 text-primary-400 p-2 hover:border-primary-300 focus:border-primary-300;
   }
 }
 
